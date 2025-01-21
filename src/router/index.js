@@ -3,7 +3,7 @@ import DashboardView from '../views/DashboardView.vue'
 import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -14,6 +14,26 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+    },
+    {
+      path: '/badge',
+      name: 'badge',
+      component: DashboardView,
+    },
+    {
+      path: '/weight',
+      name: 'weight',
+      component: DashboardView,
+    },
+    {
+      path: '/fat',
+      name: 'fat',
+      component: DashboardView,
+    },
+    {
+      path: '/sleep',
+      name: 'sleep',
+      component: DashboardView,
     },
   ],
 })
