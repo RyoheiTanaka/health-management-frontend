@@ -1,4 +1,43 @@
-<script></script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getDashboardWeightList } from '@/apis/FitbitLog'
+import { get1weekDate } from '@/utils/date'
+
+const weights = ref({})
+const weightData = ref([])
+
+const formatedSleepData = () => {
+  const dates = get1weekDate()
+  const result = []
+
+  dates.forEach((date) => {
+    const weight = weights.value.find((item) => item.date == date)
+
+    if (typeof weight === 'undefined') {
+      result.push({
+        id: undefined,
+        date: date,
+        weight: '-',
+        bmi: '-',
+      })
+    } else {
+      result.push({
+        id: weight.id,
+        date: weight.date,
+        weight: `${weight.weight}kg`,
+        bmi: weight.bmi,
+      })
+    }
+  })
+
+  return result
+}
+
+onMounted(async () => {
+  weights.value = await getDashboardWeightList()
+  weightData.value = formatedSleepData()
+})
+</script>
 
 <template>
   <section class="px-6 py-12 lg:px-8">
@@ -16,83 +55,22 @@
             <h3 class="text-sm font-medium text-gray-500 xsm:text-base">BMI</h3>
           </div>
         </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/1</p>
+        <template v-for="(weight, index) in weightData" :key="weight.date">
+          <div
+            class="grid grid-cols-3"
+            :class="{ 'border-b': index !== 6, 'border-stroke': index !== 6 }"
+          >
+            <div class="p-2.5 xl:p-5">
+              <p class="text-sm">{{ weight.date }}</p>
+            </div>
+            <div class="p-2.5 xl:p-5">
+              <p class="text-sm">{{ weight.weight }}</p>
+            </div>
+            <div class="p-2.5 xl:p-5">
+              <p class="text-sm">{{ weight.bmi }}</p>
+            </div>
           </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/2</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/3</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/4</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/5</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/6</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-3">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/7</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">70.2kg</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">22.0</p>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
   </section>
