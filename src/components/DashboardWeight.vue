@@ -41,7 +41,7 @@ onMounted(async () => {
 
 <template>
   <section class="px-6 py-12 lg:px-8">
-    <div class="bg-white p-10 rounded shadow border border-gray-200">
+    <div class="bg-white p-10 rounded shadow border border-gray-200 min-h-[30rem] lg:min-h-[40rem]">
       <h2 class="mb-8 text-xl font-bold text-black">体重</h2>
       <div class="flex flex-col">
         <div class="grid grid-cols-3 rounded-sm bg-gray-200">
