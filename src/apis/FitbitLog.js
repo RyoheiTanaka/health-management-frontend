@@ -26,3 +26,12 @@ export const getDashboardSleepList = async () => {
     console.log(error)
   }
 }
+
+export const getDashboardWeightList = async () => {
+  try {
+    const res = await axios.get('/api/fitbit/weights')
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
