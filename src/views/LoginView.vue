@@ -1,11 +1,29 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { useLoadingStore } from '@/stores/loading'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+
+const authStore = useAuthStore()
+const loadingStore = useLoadingStore()
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
 
 async function login() {
-  console.log('execute')
+  loadingStore.setLoading(true)
+  try {
+    await authStore.login(email.value, password.value)
+    if (authStore.isLoggedIn) {
+      router.push('/dashboard')
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loadingStore.setLoading(false)
+  }
 }
 </script>
 
@@ -66,4 +84,5 @@ async function login() {
       </div>
     </div>
   </div>
+  <LoadingSpinner />
 </template>
