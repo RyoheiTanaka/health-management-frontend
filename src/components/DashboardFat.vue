@@ -11,7 +11,7 @@ const formatedFatData = () => {
   const result = []
 
   dates.forEach((date) => {
-    let fat = fats.value.find((item) => item.date == date)
+    const fat = fats.value.find((item) => item.date == date)
 
     if (typeof fat === 'undefined') {
       result.push({
@@ -23,7 +23,7 @@ const formatedFatData = () => {
       result.push({
         id: fat.id,
         date: fat.date,
-        fat: fat.fat + '%',
+        fat: `${fat.fat}%`,
       })
     }
   })
