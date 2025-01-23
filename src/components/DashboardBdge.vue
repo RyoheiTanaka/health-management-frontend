@@ -1,19 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { getDashboardbadgeList } from '@/apis/FitbitLog'
 
 const badges = ref({})
-const fetchData = async () => {
-  try {
-    const res = await axios.get('/api/fitbit/badges', { params: { is_dashboard: true } })
-    badges.value = res.data.data
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 onMounted(async () => {
-  await fetchData()
+  badges.value = await getDashboardbadgeList()
 })
 </script>
 
