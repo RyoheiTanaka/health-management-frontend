@@ -1,4 +1,41 @@
-<script></script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getDashboardFatList } from '@/apis/FitbitLog'
+import { get1weekDate } from '@/utils/date'
+
+const fats = ref({})
+const fatData = ref([])
+
+const formatedFatData = () => {
+  const dates = get1weekDate()
+  const result = []
+
+  dates.forEach((date) => {
+    let fat = fats.value.find((item) => item.date == date)
+
+    if (typeof fat === 'undefined') {
+      result.push({
+        id: undefined,
+        date: date,
+        fat: '-',
+      })
+    } else {
+      result.push({
+        id: fat.id,
+        date: fat.date,
+        fat: fat.fat + '%',
+      })
+    }
+  })
+
+  return result
+}
+
+onMounted(async () => {
+  fats.value = await getDashboardFatList()
+  fatData.value = formatedFatData()
+})
+</script>
 
 <template>
   <section class="px-6 py-12 lg:px-8">
@@ -13,62 +50,19 @@
             <h3 class="text-sm font-medium text-gray-500 xsm:text-base">体脂肪率</h3>
           </div>
         </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/1</p>
+        <template v-for="(fat, index) in fatData" :key="fat.date">
+          <div
+            class="grid grid-cols-2"
+            :class="{ 'border-b': index != 6, 'border-stroke': index != 6 }"
+          >
+            <div class="p-2.5 xl:p-5">
+              <p class="text-sm">{{ fat.date }}</p>
+            </div>
+            <div class="p-2.5 xl:p-5">
+              <p class="text-sm">{{ fat.fat }}</p>
+            </div>
           </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/2</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/3</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/4</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/5</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 border-b border-stroke">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/6</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
-        <div class="grid grid-cols-2">
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">1/7</p>
-          </div>
-          <div class="p-2.5 xl:p-5">
-            <p class="text-sm">21.6%</p>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
   </section>
