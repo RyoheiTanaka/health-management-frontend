@@ -10,16 +10,16 @@ import { RouterLink } from 'vue-router'
           <RouterLink :to="{ name: 'dashboard' }">TOP</RouterLink>
         </li>
         <li class="my-4 hover:opacity-50">
-          <RouterLink :to="{ name: 'badge' }">BADGE</RouterLink>
+          <RouterLink :to="{ name: 'badgeList' }">BADGE</RouterLink>
         </li>
         <li class="my-4 hover:opacity-50">
-          <RouterLink :to="{ name: 'weight' }">WEIGHT</RouterLink>
+          <RouterLink :to="{ name: 'weightList' }">WEIGHT</RouterLink>
         </li>
         <li class="my-4 hover:opacity-50">
-          <RouterLink :to="{ name: 'fat' }">FAT</RouterLink>
+          <RouterLink :to="{ name: 'fatList' }">FAT</RouterLink>
         </li>
         <li class="my-4 hover:opacity-50">
-          <RouterLink :to="{ name: 'sleep' }">SLEEP</RouterLink>
+          <RouterLink :to="{ name: 'sleepList' }">SLEEP</RouterLink>
         </li>
       </ul>
     </nav>
