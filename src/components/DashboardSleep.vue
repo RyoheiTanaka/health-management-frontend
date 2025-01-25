@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getDashboardSleepList } from '@/apis/FitbitLog'
-import { get1weekDate } from '@/utils/date'
+import { get1weekDate, convertMilliseconds } from '@/utils/date'
 
 const sleeps = ref({})
 const sleepData = ref([])
@@ -21,14 +21,12 @@ const formatedSleepData = () => {
         sleepScore: '-',
       })
     } else {
-      const hour = Math.floor((sleep.duration % 86400) / 3600)
-      const min = Math.floor((sleep.duration % 3600) / 60)
-      const sleepTime = `${hour}時間${min}秒`
+      const { hours, minutes } = convertMilliseconds(sleep.duration)
 
       result.push({
         id: sleep.id,
         date: sleep.date_of_sleep,
-        sleepTime: sleepTime,
+        sleepTime: `${hours}時間${minutes}秒`,
         sleepScore: `${sleep.efficiency}点`,
       })
     }
