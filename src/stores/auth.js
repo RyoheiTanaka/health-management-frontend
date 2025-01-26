@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async checkAuth() {
       try {
-        const response = await axios.get('/api/auth/check')
+        const response = await axios.get('/backend/auth/check')
         this.isLoggedIn = response.data.authenticated
       } catch (error) {
         console.log(error)
