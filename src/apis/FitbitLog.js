@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const getDashboardbadgeList = async () => {
   try {
-    const res = await axios.get('/api/fitbit/badges', { params: { is_dashboard: true } })
+    const res = await axios.get('/backend/fitbit/badges', { params: { is_dashboard: true } })
     return res.data.data
   } catch (error) {
     console.log(error)
@@ -11,7 +11,7 @@ export const getDashboardbadgeList = async () => {
 
 export const getDashboardFatList = async () => {
   try {
-    const res = await axios.get('/api/fitbit/fats')
+    const res = await axios.get('/backend/fitbit/fats')
     return res.data.data
   } catch (error) {
     console.log(error)
@@ -20,7 +20,7 @@ export const getDashboardFatList = async () => {
 
 export const getDashboardSleepList = async () => {
   try {
-    const res = await axios.get('/api/fitbit/sleeps')
+    const res = await axios.get('/backend/fitbit/sleeps')
     return res.data.data
   } catch (error) {
     console.log(error)
@@ -29,7 +29,7 @@ export const getDashboardSleepList = async () => {
 
 export const getDashboardWeightList = async () => {
   try {
-    const res = await axios.get('/api/fitbit/weights')
+    const res = await axios.get('/backend/fitbit/weights')
     return res.data.data
   } catch (error) {
     console.log(error)
