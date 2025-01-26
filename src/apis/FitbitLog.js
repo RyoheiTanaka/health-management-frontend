@@ -1,8 +1,26 @@
 import axios from 'axios'
 
-export const getDashboardbadgeList = async () => {
+export const getDashboardBadgeListApi = async () => {
   try {
     const res = await axios.get('/backend/fitbit/badges', { params: { is_dashboard: true } })
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getBadgeListApi = async () => {
+  try {
+    const res = await axios.get('/backend/fitbit/badges', { params: { is_dashboard: false } })
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getBadgeApi = async (id) => {
+  try {
+    const res = await axios.get(`/backend/fitbit/badges/${id}`)
     return res.data.data
   } catch (error) {
     console.log(error)
