@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async login(email, password) {
       try {
-        // await axios.get('/sanctum/csrf-cookie')
+        await axios.get('/sanctum/csrf-cookie')
         await axios.post('/login', { email, password })
         this.isLoggedIn = true
       } catch (error) {
@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async logout() {
       try {
-        // await axios.get('/sanctum/csrf-cookie')
+        await axios.get('/sanctum/csrf-cookie')
         await axios.post('/logout')
         this.isLoggedIn = false
       } catch (error) {
