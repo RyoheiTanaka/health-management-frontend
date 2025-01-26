@@ -1,14 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import BadgeListView from '@/views/Badge/BadgeListView.vue'
-import BadgeDetailView from '@/views/Badge/BadgeDetailView.vue'
-import FatListView from '@/views/Fat/FatListView.vue'
-import FatDetailView from '@/views/Fat/FatDetailView.vue'
-import SleepListView from '@/views/Sleep/SleepListView.vue'
-import SleepDetailView from '@/views/Sleep/SleepDetailView.vue'
-import WeightListView from '@/views/Weight/WeightListView.vue'
-import WeightDetailView from '@/views/Weight/WeightDetailView.vue'
-import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
@@ -22,7 +13,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardView,
+      component: () => import('../views/DashboardView.vue'),
       meta: { requiresAuth: true },
     },
     {
@@ -33,49 +24,49 @@ const router = createRouter({
     {
       path: '/badge',
       name: 'badgeList',
-      component: BadgeListView,
+      component: () => import('../views/Badge/BadgeListView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/badge/:id',
       name: 'badgeDetail',
-      component: BadgeDetailView,
+      component: () => import('../views/Badge/BadgeDetailView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/weight',
       name: 'weightList',
-      component: WeightListView,
+      component: () => import('../views/Weight/WeightListView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/weight/:id',
       name: 'weightDetail',
-      component: WeightDetailView,
+      component: () => import('../views/Weight/WeightDetailView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/fat',
       name: 'fatList',
-      component: FatListView,
+      component: () => import('../views/Fat/FatListView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/fat/:id',
       name: 'fatDetail',
-      component: FatDetailView,
+      component: () => import('../views/Fat/FatDetailView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/sleep',
       name: 'sleepList',
-      component: SleepListView,
+      component: () => import('../views/Sleep/SleepListView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/sleep/:id',
       name: 'sleepDetail',
-      component: SleepDetailView,
+      component: () => import('../views/Sleep/SleepDetailView.vue'),
       meta: { requiresAuth: true },
     },
   ],
