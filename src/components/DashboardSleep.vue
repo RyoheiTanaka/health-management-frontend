@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getDashboardSleepList } from '@/apis/FitbitLog'
 import { get1weekDate, convertMilliseconds } from '@/utils/date'
 
@@ -35,7 +35,7 @@ const formatedSleepData = () => {
   return result
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   sleeps.value = await getDashboardSleepList()
   sleepData.value = formatedSleepData()
 })

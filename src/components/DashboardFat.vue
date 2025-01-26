@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getDashboardFatList } from '@/apis/FitbitLog'
 import { get1weekDate } from '@/utils/date'
 
@@ -31,7 +31,7 @@ const formatedFatData = () => {
   return result
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   fats.value = await getDashboardFatList()
   fatData.value = formatedFatData()
 })

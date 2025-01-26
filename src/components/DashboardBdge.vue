@@ -1,11 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { getDashboardbadgeList } from '@/apis/FitbitLog'
+import { ref, onBeforeMount } from 'vue'
+import { getDashboardBadgeListApi } from '@/apis/FitbitLog'
 
 const badges = ref({})
 
-onMounted(async () => {
-  badges.value = await getDashboardbadgeList()
+onBeforeMount(async () => {
+  badges.value = await getDashboardBadgeListApi()
 })
 </script>
 

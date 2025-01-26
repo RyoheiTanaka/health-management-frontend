@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getDashboardWeightList } from '@/apis/FitbitLog'
 import { get1weekDate } from '@/utils/date'
 
@@ -33,7 +33,7 @@ const formatedSleepData = () => {
   return result
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   weights.value = await getDashboardWeightList()
   weightData.value = formatedSleepData()
 })
