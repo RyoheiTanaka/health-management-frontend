@@ -1,7 +1,7 @@
 <script setup>
-import MainHeader from '@/components/MainHeader.vue'
-import MainFooter from '@/components/MainFooter.vue'
-import FatList from '@/components/FatList.vue'
+import MainHeader from '@/components/Common/MainHeader.vue'
+import MainFooter from '@/components/Common/MainFooter.vue'
+import FatList from '@/components/Fat/FatList.vue'
 </script>
 
 <template>

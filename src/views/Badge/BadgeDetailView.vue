@@ -1,7 +1,7 @@
 <script setup>
-import MainHeader from '@/components/MainHeader.vue'
-import MainFooter from '@/components/MainFooter.vue'
-import BadgeDetail from '@/components/BadgeDetail.vue'
+import MainHeader from '@/components/Common/MainHeader.vue'
+import MainFooter from '@/components/Common/MainFooter.vue'
+import BadgeDetail from '@/components/Badge/BadgeDetail.vue'
 </script>
 
 <template>

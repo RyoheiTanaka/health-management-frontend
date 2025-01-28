@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useLoadingStore } from '@/stores/loading'
-import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import LoadingSpinner from '@/components/Common/LoadingSpinner.vue'
 
 const authStore = useAuthStore()
 const loadingStore = useLoadingStore()

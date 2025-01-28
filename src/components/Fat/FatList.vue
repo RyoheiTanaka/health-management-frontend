@@ -38,8 +38,7 @@ const series = ref([
   },
 ])
 
-const formatedFatData = () => {
-  const dates = getWeekDate()
+const formatedFatData = (dates) => {
   const result = []
 
   dates.forEach((date) => {
@@ -65,7 +64,7 @@ const formatedFatData = () => {
 
 onBeforeMount(async () => {
   fats.value = await getFatListApi()
-  fatData.value = formatedFatData()
+  fatData.value = formatedFatData(date)
   date.forEach((item) => {
     const result = fats.value.find(({ date }) => date === item)
     if (typeof result !== 'undefined') {
