@@ -7,10 +7,10 @@ const weights = ref({})
 const weightData = ref([])
 
 const formatedSleepData = () => {
-  const dates = getWeekDate()
+  const oneWeekDate = getWeekDate()
   const result = []
 
-  dates.forEach((date) => {
+  oneWeekDate.forEach((date) => {
     const weight = weights.value.find((item) => item.date == date)
 
     if (typeof weight === 'undefined') {

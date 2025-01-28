@@ -7,10 +7,10 @@ const fats = ref({})
 const fatData = ref([])
 
 const formatedFatData = () => {
-  const dates = getWeekDate()
+  const oneWeekDate = getWeekDate()
   const result = []
 
-  dates.forEach((date) => {
+  oneWeekDate.forEach((date) => {
     const fat = fats.value.find((item) => item.date == date)
 
     if (typeof fat === 'undefined') {

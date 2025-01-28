@@ -7,10 +7,10 @@ const sleeps = ref({})
 const sleepData = ref([])
 
 const formatedSleepData = () => {
-  const dates = getWeekDate()
+  const oneWeekDate = getWeekDate()
   const result = []
 
-  dates.forEach((date) => {
+  oneWeekDate.forEach((date) => {
     const sleep = sleeps.value.find((item) => item.date_of_sleep == date)
 
     if (typeof sleep === 'undefined') {

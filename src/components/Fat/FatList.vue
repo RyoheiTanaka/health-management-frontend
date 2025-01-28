@@ -3,7 +3,7 @@ import { getFatListApi } from '@/apis/FitbitLog'
 import { getWeekDate } from '@/utils/date'
 import { onBeforeMount, ref } from 'vue'
 
-const date = getWeekDate(2)
+const twoWeekDate = getWeekDate(2)
 const fats = ref({})
 const fatData = ref({})
 
@@ -27,7 +27,7 @@ const chartOptions = ref({
     max: 30,
   },
   xaxis: {
-    categories: date,
+    categories: twoWeekDate,
   },
 })
 
@@ -38,10 +38,10 @@ const series = ref([
   },
 ])
 
-const formatedFatData = (dates) => {
+const formatedFatData = (propsDate) => {
   const result = []
 
-  dates.forEach((date) => {
+  propsDate.forEach((date) => {
     const fat = fats.value.find((item) => item.date == date)
 
     if (typeof fat === 'undefined') {
@@ -64,8 +64,8 @@ const formatedFatData = (dates) => {
 
 onBeforeMount(async () => {
   fats.value = await getFatListApi()
-  fatData.value = formatedFatData(date)
-  date.forEach((item) => {
+  fatData.value = formatedFatData(twoWeekDate)
+  twoWeekDate.forEach((item) => {
     const result = fats.value.find(({ date }) => date === item)
     if (typeof result !== 'undefined') {
       series.value[0].data.push(result.fat)
