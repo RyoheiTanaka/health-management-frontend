@@ -29,7 +29,7 @@ export const getBadgeApi = async (id) => {
 
 export const getDashboardFatList = async () => {
   try {
-    const res = await axios.get('/backend/fitbit/fats')
+    const res = await axios.get('/backend/fitbit/fats', { params: { is_dashboard: true } })
     return res.data.data
   } catch (error) {
     console.log(error)
@@ -38,7 +38,7 @@ export const getDashboardFatList = async () => {
 
 export const getFatListApi = async () => {
   try {
-    const res = await axios.get('/backend/fitbit/fats')
+    const res = await axios.get('/backend/fitbit/fats', { params: { is_dashboard: false } })
     return res.data.data
   } catch (error) {
     console.log(error)
