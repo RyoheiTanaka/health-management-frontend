@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { getDashboardFatList } from '@/apis/FitbitLog'
-import { get1weekDate } from '@/utils/date'
+import { getWeekDate } from '@/utils/date'
 
 const fats = ref({})
 const fatData = ref([])
 
 const formatedFatData = () => {
-  const dates = get1weekDate()
+  const dates = getWeekDate()
   const result = []
 
   dates.forEach((date) => {
@@ -53,7 +53,10 @@ onBeforeMount(async () => {
         <template v-for="(fat, index) in fatData" :key="fat.date">
           <div
             class="grid grid-cols-2"
-            :class="{ 'border-b': index != 6, 'border-stroke': index != 6 }"
+            :class="{
+              'border-b': index != fatData.length - 1,
+              'border-stroke': index != fatData.length - 1,
+            }"
           >
             <div class="p-2.5 xl:p-5">
               <p class="text-sm">{{ fat.date }}</p>

@@ -36,6 +36,24 @@ export const getDashboardFatList = async () => {
   }
 }
 
+export const getFatListApi = async () => {
+  try {
+    const res = await axios.get('/backend/fitbit/fats')
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getFatApi = async (id) => {
+  try {
+    const res = await axios.get(`/backend/fitbit/fats/${id}`)
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getDashboardSleepList = async () => {
   try {
     const res = await axios.get('/backend/fitbit/sleeps')

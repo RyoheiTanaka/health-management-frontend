@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { getDashboardWeightList } from '@/apis/FitbitLog'
-import { get1weekDate } from '@/utils/date'
+import { getWeekDate } from '@/utils/date'
 
 const weights = ref({})
 const weightData = ref([])
 
 const formatedSleepData = () => {
-  const dates = get1weekDate()
+  const dates = getWeekDate()
   const result = []
 
   dates.forEach((date) => {
@@ -58,7 +58,10 @@ onBeforeMount(async () => {
         <template v-for="(weight, index) in weightData" :key="weight.date">
           <div
             class="grid grid-cols-3"
-            :class="{ 'border-b': index !== 6, 'border-stroke': index !== 6 }"
+            :class="{
+              'border-b': index !== weightData.length - 1,
+              'border-stroke': index !== weightData.length - 1,
+            }"
           >
             <div class="p-2.5 xl:p-5">
               <p class="text-sm">{{ weight.date }}</p>
