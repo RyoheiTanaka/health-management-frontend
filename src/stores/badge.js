@@ -1,55 +1,59 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getDashboardBadgeListApi, getBadgeListApi, getBadgeApi } from '@/apis/FitbitLog'
-import { groupBy } from '@/utils/format'
+import { getBadgeApi, getBadgeListApi } from '@/apis/FitbitLog'
 
 export const useBadgeStore = defineStore('badge', () => {
-  const isFetched = ref(false)
-  const dashboradBadgeList = ref({})
-  const badgeList = ref({})
-  const badge = ref({})
+  const cache = ref(new Map())
+  const badgeList = ref([])
+  const badge = ref(null)
+  const isLoading = ref(false)
 
-  async function getDashboardBadgeList() {
+  const getBadgeList = async () => {
+    isLoading.value = true
     try {
-      isFetched.value = false
-      dashboradBadgeList.value = await getDashboardBadgeListApi()
-    } catch (error) {
-      console.log(error)
+      const data = await getBadgeListApi()
+      setBadgeList(data)
+    } catch (e) {
+      console.error('データ取得エラー:', e)
     } finally {
-      isFetched.value = true
+      isLoading.value = false
     }
   }
 
-  async function getBadgeList() {
+  const getSelectedBadge = async (id) => {
+    if (!id) return
+    if (cache.value.has(id)) {
+      badge.value = cache.value.get(id)
+      return
+    }
+    isLoading.value = true
+    badge.value = null
     try {
-      isFetched.value = false
-      const response = await getBadgeListApi()
-      badgeList.value = groupBy(response, 'category')
-    } catch (error) {
-      console.log(error)
+      const data = await getBadgeApi(id)
+      setSelectedBadge(data)
+      cache.value.set(id, data)
+    } catch (e) {
+      console.error('データ取得エラー:', e)
     } finally {
-      isFetched.value = true
+      isLoading.value = false
     }
   }
 
-  async function getBadge(id) {
-    try {
-      isFetched.value = false
-      badge.value = await getBadgeApi(id)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      isFetched.value = true
-    }
+  const setBadgeList = (data) => {
+    badgeList.value = data
+  }
+
+  const setSelectedBadge = (data) => {
+    badge.value = data
   }
 
   return {
-    isFetched,
-    dashboradBadgeList,
     badgeList,
     badge,
-    getDashboardBadgeList,
+    isLoading,
     getBadgeList,
-    getBadge,
+    getSelectedBadge,
+    setBadgeList,
+    setSelectedBadge,
   }
 })
