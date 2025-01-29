@@ -90,7 +90,7 @@ onBeforeMount(async () => {
       <div class="mb-8">
         <h3 class="mb-4 text-lg font-bold">グラフ</h3>
         <div id="chart">
-          <apexchart :options="chartOptions" :series="series"></apexchart>
+          <apexchart height="400" :options="chartOptions" :series="series"></apexchart>
         </div>
       </div>
       <div>
