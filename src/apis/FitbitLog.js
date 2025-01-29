@@ -63,6 +63,24 @@ export const getDashboardSleepList = async () => {
   }
 }
 
+export const getSleepListApi = async () => {
+  try {
+    const res = await axios.get('/backend/fitbit/sleeps', { params: { is_dashboard: false } })
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getSleepApi = async (id) => {
+  try {
+    const res = await axios.get(`/backend/fitbit/sleeps/${id}`)
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getDashboardWeightList = async () => {
   try {
     const res = await axios.get('/backend/fitbit/weights', { params: { is_dashboard: true } })
