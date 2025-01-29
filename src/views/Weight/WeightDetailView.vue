@@ -1,11 +1,11 @@
 <script setup>
 import MainHeader from '@/components/Common/MainHeader.vue'
 import MainFooter from '@/components/Common/MainFooter.vue'
+import WeightDetail from '@/components/Weight/WeightDetail.vue'
 </script>
 
 <template>
   <MainHeader />
-  <h2>WeightDetail</h2>
-  <p><RouterLink :to="{ name: 'weightList' }">一覧ページへ</RouterLink></p>
+  <WeightDetail />
   <MainFooter />
 </template>
