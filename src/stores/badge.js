@@ -1,9 +1,8 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getBadgeApi, getBadgeListApi } from '@/apis/FitbitLog'
+import { getBadgeListApi } from '@/apis/FitbitLog'
 
 export const useBadgeStore = defineStore('badge', () => {
-  const cache = ref(new Map())
   const badgeList = ref([])
   const badge = ref(null)
   const isLoading = ref(false)
@@ -21,17 +20,16 @@ export const useBadgeStore = defineStore('badge', () => {
   }
 
   const getSelectedBadge = async (id) => {
-    if (!id) return
-    if (cache.value.has(id)) {
-      badge.value = cache.value.get(id)
-      return
-    }
     isLoading.value = true
     badge.value = null
+    const findValue = id
     try {
-      const data = await getBadgeApi(id)
+      if (badgeList.value.length === 0) {
+        const listData = await getBadgeListApi()
+        setBadgeList(listData)
+      }
+      const data = badgeList.value.find(({ id }) => id == findValue)
       setSelectedBadge(data)
-      cache.value.set(id, data)
     } catch (e) {
       console.error('データ取得エラー:', e)
     } finally {
