@@ -92,51 +92,53 @@ watchEffect(() => {
       <div v-if="fatStore.isLoading">
         <p>Loading...</p>
       </div>
-      <div v-else-if="fat" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
-        <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
-          <div id="chart">
-            <apexchart
-              type="radialBar"
-              height="400"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
+      <div v-else-if="fat">
+        <div class="flex flex-col justify-normal lg:flex-row lg:justify-between">
+          <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
+            <div id="chart">
+              <apexchart
+                type="radialBar"
+                height="400"
+                :options="chartOptions"
+                :series="series"
+              ></apexchart>
+            </div>
+          </div>
+          <div class="lg:w-[50%]">
+            <div class="flex flex-col">
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">計測日</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">{{ fat.date }}</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">体脂肪率</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">{{ fat.fat }}%</p>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">肥満度</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">{{ obesityLevel }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="lg:w-[50%]">
-          <div class="flex flex-col">
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">計測日</h3>
-              </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">{{ fat.date }}</p>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">体脂肪率</h3>
-              </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">{{ fat.fat }}%</p>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">肥満度</h3>
-              </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">{{ obesityLevel }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="text-right mt-4">
-            <RouterLink
-              :to="{ name: 'fatList' }"
-              class="text-base underline text-blue-500 hover:opacity-50"
-              >back to Fat List</RouterLink
-            >
-          </div>
+        <div class="text-right mt-4">
+          <RouterLink
+            :to="{ name: 'fatList' }"
+            class="text-base underline text-blue-500 hover:opacity-50"
+            >back to Fat List</RouterLink
+          >
         </div>
       </div>
       <div v-else>データが見つかりません</div>

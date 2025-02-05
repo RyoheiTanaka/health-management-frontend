@@ -96,44 +96,46 @@ watchEffect(() => {
       <div v-if="weightStore.isLoading">
         <p>Loading...</p>
       </div>
-      <div v-else-if="weight" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
-        <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
-          <div id="chart">
-            <apexchart
-              type="radialBar"
-              height="400"
-              :options="chartOptions"
-              :series="series"
-            ></apexchart>
+      <div v-else-if="weight">
+        <div class="flex flex-col justify-normal lg:flex-row lg:justify-between">
+          <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
+            <div id="chart">
+              <apexchart
+                type="radialBar"
+                height="400"
+                :options="chartOptions"
+                :series="series"
+              ></apexchart>
+            </div>
+            <div class="text-center text-2xl font-bold">{{ weight.weight }}kg</div>
           </div>
-          <div class="text-center text-2xl font-bold">{{ weight.weight }}kg</div>
-        </div>
-        <div class="lg:w-[50%]">
-          <div class="flex flex-col">
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">計測日</h3>
+          <div class="lg:w-[50%]">
+            <div class="flex flex-col">
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">計測日</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">{{ weight.date }}</p>
+                </div>
               </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">{{ weight.date }}</p>
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">体重</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">{{ weight.weight }}kg</p>
+                </div>
               </div>
-            </div>
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">体重</h3>
-              </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">{{ weight.weight }}kg</p>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
-              <div class="p-2.5 xl:p-5">
-                <h3 class="text-sm font-medium text-gray-500 xsm:text-base">BMI</h3>
-              </div>
-              <div class="p-2.5 xl:p-5">
-                <p class="text-sm font-medium text-black xsm:text-base">
-                  {{ weight.bmi }} ({{ bmiLevel }})
-                </p>
+              <div class="grid grid-cols-2 rounded-sm border-b border-stroke">
+                <div class="p-2.5 xl:p-5">
+                  <h3 class="text-sm font-medium text-gray-500 xsm:text-base">BMI</h3>
+                </div>
+                <div class="p-2.5 xl:p-5">
+                  <p class="text-sm font-medium text-black xsm:text-base">
+                    {{ weight.bmi }} ({{ bmiLevel }})
+                  </p>
+                </div>
               </div>
             </div>
           </div>
