@@ -1,14 +1,16 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { getFatApi } from '@/apis/FitbitLog'
+import { useFatStore } from '@/stores/fat'
 
 const route = useRoute()
-const isFetched = ref(false)
-const id = route.params.id
-const fat = ref({})
-const obesityLevel = ref('')
+const fatStore = useFatStore()
 
+const fat = computed(() => fatStore.fat)
+const obesityLevel = computed(() => getObesityLevel(fatStore.fat.fat))
+const series = computed(() => [(fatStore.fat.fat / 30) * 100])
+
+const prevId = ref(null)
 const chartOptions = ref({
   chart: {
     id: 'vuechart-fat-detail',
@@ -62,8 +64,6 @@ const chartOptions = ref({
   labels: ['Body Fat Percentage'],
 })
 
-const series = ref([])
-
 function getObesityLevel(fat) {
   if (fat < 10) {
     return 'やせ'
@@ -76,14 +76,12 @@ function getObesityLevel(fat) {
   }
 }
 
-onBeforeMount(async () => {
-  isFetched.value = false
-  if (Object.keys(fat.value).length == 0 || fat.value.id != id) {
-    fat.value = await getFatApi(id)
-    series.value.push((fat.value.fat / 30) * 100)
-    obesityLevel.value = getObesityLevel(fat.value.fat)
+watchEffect(() => {
+  const newId = route.params.id
+  if (newId && newId !== prevId.value) {
+    fatStore.getSelectedFat(newId)
+    prevId.value = newId
   }
-  isFetched.value = true
 })
 </script>
 
@@ -91,7 +89,10 @@ onBeforeMount(async () => {
   <section class="px-6 py-12 lg:px-8">
     <div class="bg-white p-10 rounded shadow border border-gray-200 min-h-60">
       <h2 class="mb-8 text-xl font-bold text-black">体脂肪率</h2>
-      <div v-if="isFetched" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
+      <div v-if="fatStore.isLoading">
+        <p>Loading...</p>
+      </div>
+      <div v-else-if="fat" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
         <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
           <div id="chart">
             <apexchart
@@ -129,8 +130,16 @@ onBeforeMount(async () => {
               </div>
             </div>
           </div>
+          <div class="text-right mt-4">
+            <RouterLink
+              :to="{ name: 'fatList' }"
+              class="text-base underline text-blue-500 hover:opacity-50"
+              >back to Fat List</RouterLink
+            >
+          </div>
         </div>
       </div>
+      <div v-else>データが見つかりません</div>
     </div>
   </section>
 </template>

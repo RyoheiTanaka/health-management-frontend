@@ -1,11 +1,12 @@
 <script setup>
-import { getFatListApi } from '@/apis/FitbitLog'
+import { ref, computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
+import { useFatStore } from '@/stores/fat'
 import { getWeekDate } from '@/utils/date'
-import { onBeforeMount, ref } from 'vue'
 
 const twoWeekDate = getWeekDate(2)
-const fats = ref({})
-const fatData = ref({})
+const fatStore = useFatStore()
+const fatData = computed(() => formatedFatData(twoWeekDate, fatStore.fatList))
 
 const chartOptions = ref({
   chart: {
@@ -38,11 +39,11 @@ const series = ref([
   },
 ])
 
-const formatedFatData = (propsDate) => {
+const formatedFatData = (propsDate, propsListData) => {
   const result = []
 
   propsDate.forEach((date) => {
-    const fat = fats.value.find((item) => item.date == date)
+    const fat = propsListData.find((item) => item.date == date)
 
     if (typeof fat === 'undefined') {
       result.push({
@@ -62,11 +63,12 @@ const formatedFatData = (propsDate) => {
   return result
 }
 
-onBeforeMount(async () => {
-  fats.value = await getFatListApi()
-  fatData.value = formatedFatData(twoWeekDate)
+onMounted(async () => {
+  if (fatStore.fatList.length === 0) {
+    await fatStore.getFatList()
+  }
   twoWeekDate.forEach((item) => {
-    const result = fats.value.find(({ date }) => date === item)
+    const result = fatStore.fatList.find(({ date }) => date === item)
     if (typeof result !== 'undefined') {
       series.value[0].data.push(result.fat)
     } else {
@@ -88,7 +90,10 @@ onBeforeMount(async () => {
       </div>
       <div>
         <h3 class="mb-4 text-lg font-bold">一覧</h3>
-        <div class="flex flex-col">
+        <div v-if="fatStore.isLoading">
+          <p>Loading...</p>
+        </div>
+        <div v-else class="flex flex-col">
           <div class="grid grid-cols-2 rounded-sm bg-gray-200">
             <div class="p-2.5 xl:p-5">
               <h4 class="text-sm font-medium text-gray-500 xsm:text-base">日付</h4>
@@ -132,6 +137,14 @@ onBeforeMount(async () => {
               </div>
             </a>
           </template>
+          <div class="text-right mt-4">
+            <RouterLink
+              :to="{ name: 'dashboard' }"
+              class="text-base underline text-blue-500 hover:opacity-50"
+            >
+              back to Dashboard
+            </RouterLink>
+          </div>
         </div>
       </div>
     </div>
