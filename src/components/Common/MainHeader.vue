@@ -1,23 +1,23 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useLoadingStore } from '@/stores/loading'
+import router from '@/router'
 
 const authStore = useAuthStore()
-const loadingStore = useLoadingStore()
-const router = useRouter()
 const isOpen = ref(false)
 
-async function logout() {
-  loadingStore.setLoading(true)
+const logout = async () => {
+  authStore.setIsLoading(true)
   try {
-    await authStore.logout()
-    router.push('/login')
-  } catch (error) {
-    console.log(error)
+    const result = await authStore.logout()
+    if (result) {
+      router.push('/login')
+    }
+  } catch (e) {
+    console.log('ログアウトに失敗しました。', e)
   } finally {
-    loadingStore.setLoading(false)
+    authStore.setIsLoading(false)
   }
 }
 </script>

@@ -1,28 +1,24 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useLoadingStore } from '@/stores/loading'
 import LoadingSpinner from '@/components/Common/LoadingSpinner.vue'
+import router from '@/router'
 
 const authStore = useAuthStore()
-const loadingStore = useLoadingStore()
-const router = useRouter()
-
 const email = ref('')
 const password = ref('')
 
-async function login() {
-  loadingStore.setLoading(true)
+const login = async () => {
+  authStore.setIsLoading(true)
   try {
-    await authStore.login(email.value, password.value)
-    if (authStore.isLoggedIn) {
+    const result = await authStore.login(email.value, password.value)
+    if (result) {
       router.push('/dashboard')
     }
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    console.log('ログインに失敗しました。', e)
   } finally {
-    loadingStore.setLoading(false)
+    authStore.setIsLoading(false)
   }
 }
 </script>
@@ -83,6 +79,6 @@ async function login() {
         </form>
       </div>
     </div>
+    <LoadingSpinner />
   </div>
-  <LoadingSpinner />
 </template>

@@ -9,6 +9,7 @@ const router = createRouter({
       path: '/',
       name: 'index',
       redirect: 'login',
+      meta: { requiresAuth: false },
     },
     {
       path: '/dashboard',
@@ -20,6 +21,7 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: { requiresAuth: false },
     },
     {
       path: '/badge',
@@ -74,17 +76,23 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
+  authStore.setIsLoading(true)
+  try {
+    if (!authStore.isLoggedIn) {
+      await authStore.checkAuth()
+    }
 
-  if (!authStore.isLoggedIn) {
-    await authStore.checkAuth()
-  }
-
-  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-    next('/login')
-  } else if (to.path === '/login' && authStore.isLoggedIn) {
-    next('/dashboard')
-  } else {
-    next()
+    if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+      next('/login')
+    } else if (to.path === '/login' && authStore.isLoggedIn) {
+      next('/dashboard')
+    } else {
+      next()
+    }
+  } catch (e) {
+    console.log(e)
+  } finally {
+    authStore.setIsLoading(false)
   }
 })
 

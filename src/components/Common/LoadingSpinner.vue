@@ -1,11 +1,11 @@
 <script setup>
-import { useLoadingStore } from '@/stores/loading'
+import { useAuthStore } from '@/stores/auth'
 
-const loadingStore = useLoadingStore()
+const authStore = useAuthStore()
 </script>
 
 <template>
-  <div v-if="loadingStore.isLoading" class="loading-overlay">
+  <div v-show="authStore.isLoading" class="loading-overlay">
     <div class="spinner"></div>
   </div>
 </template>
