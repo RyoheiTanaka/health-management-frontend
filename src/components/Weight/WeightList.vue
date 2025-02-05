@@ -1,11 +1,12 @@
 <script setup>
-import { getWeightListApi } from '@/apis/FitbitLog'
+import { ref, computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
+import { useWeightStore } from '@/stores/weight'
 import { getWeekDate } from '@/utils/date'
-import { onBeforeMount, ref } from 'vue'
 
 const twoWeekDate = getWeekDate(2)
-const weights = ref({})
-const weightData = ref({})
+const weightStore = useWeightStore()
+const weightData = computed(() => formatedWeightData(twoWeekDate, weightStore.weightList))
 
 const chartOptions = ref({
   chart: {
@@ -38,11 +39,11 @@ const series = ref([
   },
 ])
 
-const formatedWeightData = (propsDate) => {
+const formatedWeightData = (propsDate, propsListData) => {
   const result = []
 
   propsDate.forEach((date) => {
-    const weight = weights.value.find((item) => item.date == date)
+    const weight = propsListData.find((item) => item.date == date)
 
     if (typeof weight === 'undefined') {
       result.push({
@@ -64,11 +65,12 @@ const formatedWeightData = (propsDate) => {
   return result
 }
 
-onBeforeMount(async () => {
-  weights.value = await getWeightListApi()
-  weightData.value = formatedWeightData(twoWeekDate)
+onMounted(async () => {
+  if (weightStore.weightList.length === 0) {
+    await weightStore.getWeightList()
+  }
   twoWeekDate.forEach((item) => {
-    const result = weights.value.find(({ date }) => date === item)
+    const result = weightStore.weightList.find(({ date }) => date === item)
     if (typeof result !== 'undefined') {
       series.value[0].data.push(result.weight)
     } else {
@@ -90,7 +92,10 @@ onBeforeMount(async () => {
       </div>
       <div>
         <h3 class="mb-4 text-lg font-bold">一覧</h3>
-        <div class="flex flex-col">
+        <div v-if="weightStore.isLoading">
+          <p>Loading...</p>
+        </div>
+        <div v-else class="flex flex-col">
           <div class="grid grid-cols-3 rounded-sm bg-gray-200">
             <div class="p-2.5 xl:p-5">
               <h4 class="text-sm font-medium text-gray-500 xsm:text-base">日付</h4>
@@ -143,6 +148,14 @@ onBeforeMount(async () => {
               </div>
             </a>
           </template>
+          <div class="text-right mt-4">
+            <RouterLink
+              :to="{ name: 'dashboard' }"
+              class="text-base underline text-blue-500 hover:opacity-50"
+            >
+              back to Dashboard
+            </RouterLink>
+          </div>
         </div>
       </div>
     </div>

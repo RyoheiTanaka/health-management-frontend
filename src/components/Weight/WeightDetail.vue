@@ -1,14 +1,16 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { getWeightApi } from '@/apis/FitbitLog'
+import { useWeightStore } from '@/stores/weight'
 
 const route = useRoute()
-const isFetched = ref(false)
-const id = route.params.id
-const weight = ref({})
-const bmiLevel = ref('')
+const weightStore = useWeightStore()
 
+const weight = computed(() => weightStore.weight)
+const bmiLevel = computed(() => getBmiLevel(weightStore.weight.bmi))
+const series = computed(() => [(weightStore.weight.bmi / 40) * 100])
+
+const prevId = ref(null)
 const chartOptions = ref({
   chart: {
     id: 'vuechart-weight-detail',
@@ -62,8 +64,6 @@ const chartOptions = ref({
   labels: ['BMI'],
 })
 
-const series = ref([])
-
 function getBmiLevel(bmi) {
   if (bmi < 18.5) {
     return '低体重'
@@ -80,14 +80,12 @@ function getBmiLevel(bmi) {
   }
 }
 
-onBeforeMount(async () => {
-  isFetched.value = false
-  if (Object.keys(weight.value).length == 0 || weight.value.id != id) {
-    weight.value = await getWeightApi(id)
-    series.value.push((weight.value.bmi / 40) * 100)
-    bmiLevel.value = getBmiLevel(weight.value.bmi)
+watchEffect(() => {
+  const newId = route.params.id
+  if (newId && newId !== prevId.value) {
+    weightStore.getSelectedWeight(newId)
+    prevId.value = newId
   }
-  isFetched.value = true
 })
 </script>
 
@@ -95,7 +93,10 @@ onBeforeMount(async () => {
   <section class="px-6 py-12 lg:px-8">
     <div class="bg-white p-10 rounded shadow border border-gray-200 min-h-60">
       <h2 class="mb-8 text-xl font-bold text-black">体重</h2>
-      <div v-if="isFetched" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
+      <div v-if="weightStore.isLoading">
+        <p>Loading...</p>
+      </div>
+      <div v-else-if="weight" class="flex flex-col justify-normal lg:flex-row lg:justify-between">
         <div id="card" class="m-0 mx-auto pb-8 lg:pb-0">
           <div id="chart">
             <apexchart
@@ -137,7 +138,15 @@ onBeforeMount(async () => {
             </div>
           </div>
         </div>
+        <div class="text-right mt-4">
+          <RouterLink
+            :to="{ name: 'weightList' }"
+            class="text-base underline text-blue-500 hover:opacity-50"
+            >back to Weight List</RouterLink
+          >
+        </div>
       </div>
+      <div v-else>データが見つかりません</div>
     </div>
   </section>
 </template>
