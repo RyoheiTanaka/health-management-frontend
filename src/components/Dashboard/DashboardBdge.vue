@@ -32,7 +32,7 @@ onMounted(async () => {
           <ul class="flex flex-col justify-normal lg:flex-row lg:justify-between">
             <li class="mx-2 xl:mx-8" v-for="badge in badges" :key="badge.name">
               <RouterLink :to="{ name: 'badgeDetail', params: { id: badge.id } }">
-                <div class="mb-5 text-center">
+                <div class="mb-5 mx-auto w-32">
                   <img :src="badge.image125px" :alt="badge.description" />
                 </div>
                 <p class="text-center">{{ badge.short_name }}</p>
