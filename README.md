@@ -1,35 +1,54 @@
-# health-management-frontend
+# 🎨 健康管理ウェブアプリ - フロントエンド
 
-This template should help get you started developing with Vue 3 in Vite.
+## 📌 概要
 
-## Recommended IDE Setup
+このリポジトリは、健康管理ウェブアプリのフロントエンドのソースコードです。
+ユーザーが健康データを簡単に記録・管理できるように設計されています。
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+🔗 **バックエンドリポジトリ:** [https://github.com/RyoheiTanaka/health-management-api](https://github.com/RyoheiTanaka/health-management-api)
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🛠 技術スタック
 
-## Project Setup
+- **フレームワーク:** Vue 3
+- **アーキテクチャ:** Composition API
+- **状態管理:** Pinia
+- **ルーティング:** Vue Router
+- **スタイル:** Tailwind CSS
+- **HTTP クライアント:** Axios
+- **デプロイ:** Vercel
 
-```sh
-npm install
-```
+---
 
-### Compile and Hot-Reload for Development
+## 📂 機能一覧
 
-```sh
-npm run dev
-```
+- 🏃 **ユーザー管理:** ログイン機能
+- 📅 **データ分析:** 期間ごとの健康データの情報を表示
+- 🔐 **認証:** SPA認証を使用したユーザー認証
 
-### Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## 🛡 セキュリティ対策
 
-### Lint with [ESLint](https://eslint.org/)
+- **環境変数の管理:** `.env` ファイルを `.gitignore` に追加
+- **SPA認証:** Cookieを使用したSPA認証
 
-```sh
-npm run lint
-```
+---
+
+## 📝 ライセンス
+
+このプロジェクトのソースコードの **改変・複製・再配布を禁止** します。
+詳細は [`LICENSE`](./LICENSE) をご覧ください。
+
+---
+
+## 📬 お問い合わせ
+
+何か質問があれば、お気軽にご連絡ください！
+
+📧 **Email:** ryohei.tanaka@coolat.net
+
+---
+
+🚀 **ご覧いただき、ありがとうございます！** 🙌
