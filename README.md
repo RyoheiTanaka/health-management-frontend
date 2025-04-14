@@ -88,8 +88,7 @@ Copyright (c) 2024 Ryohei Tanaka
 
 ## 👤 開発者
 
-田中 涼平（@RyoheiTanaka）
-
-Email: ryohei.tanaka@coolat.net
+- **田中 涼平**（[@RyoheiTanaka](https://github.com/RyoheiTanaka)）
+- Email: [ryohei.tanaka@coolat.net](mailto:ryohei.tanaka@coolat.net)
 
 ご覧いただきありがとうございました！
