@@ -1,7 +1,7 @@
 # 健康管理アプリ - フロントエンド
 
 ![Vue.js](https://img.shields.io/badge/Vue-3.x-brightgreen?logo=vue.js)
-![Vite](https://img.shields.io/badge/Vite-4.x-yellow?logo=vite)
+![Vite](https://img.shields.io/badge/Vite-6.x-yellow?logo=vite)
 ![Pinia](https://img.shields.io/badge/Pinia-State_Management-orange)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-blue?logo=tailwind-css)
 ![Axios](https://img.shields.io/badge/Axios-API-blueviolet)
