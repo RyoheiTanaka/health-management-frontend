@@ -44,6 +44,9 @@ const logout = async () => {
             <RouterLink :to="{ name: 'sleepList' }">SLEEP</RouterLink>
           </li>
           <li class="ml-8 hover:opacity-50">
+            <RouterLink :to="{ name: 'settings' }">SETTING</RouterLink>
+          </li>
+          <li class="ml-8 hover:opacity-50">
             <button @click="logout">ログアウト</button>
           </li>
         </ul>
@@ -70,6 +73,9 @@ const logout = async () => {
             </li>
             <li class="p-4 border-b-2">
               <RouterLink :to="{ name: 'sleepList' }">SLEEP</RouterLink>
+            </li>
+            <li class="p-4 border-b-2">
+              <RouterLink :to="{ name: 'settings' }">SETTING</RouterLink>
             </li>
             <li class="p-4 border-b-2">
               <div class="rounded-xl bg-gray-500 text-white text-lg font-bold">

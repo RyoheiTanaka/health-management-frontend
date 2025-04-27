@@ -21,6 +21,9 @@ import { RouterLink } from 'vue-router'
         <li class="my-4 hover:opacity-50">
           <RouterLink :to="{ name: 'sleepList' }">SLEEP</RouterLink>
         </li>
+        <li class="my-4 hover:opacity-50">
+          <RouterLink :to="{ name: 'settings' }">SETTING</RouterLink>
+        </li>
       </ul>
     </nav>
     <div class="flex items-end">
