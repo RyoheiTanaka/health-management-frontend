@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useWeightStore } from '@/stores/weight'
 import { getWeekDate } from '@/utils/date'

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useSleepStore } from '@/stores/sleep'
 import { getWeekDate, convertMilliseconds } from '@/utils/date'

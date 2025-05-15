@@ -6,11 +6,11 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref(false)
   const isLoggedIn = ref(false)
 
-  const setIsLoading = (flg) => {
+  const setIsLoading = (flg: boolean) => {
     isLoading.value = flg
   }
 
-  const setIsLoggedIn = (flg) => {
+  const setIsLoggedIn = (flg: boolean) => {
     isLoggedIn.value = flg
   }
 
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     try {
       await axios.get('/sanctum/csrf-cookie')
       await axios.post('/login', { email, password })
