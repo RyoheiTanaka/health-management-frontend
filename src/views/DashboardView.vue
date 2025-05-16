@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import MainHeader from '@/components/Common/MainHeader.vue'
 import MainFooter from '@/components/Common/MainFooter.vue'
 import DashboardBadge from '@/components/Dashboard/DashboardBdge.vue'

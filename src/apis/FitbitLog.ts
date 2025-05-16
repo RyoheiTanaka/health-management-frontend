@@ -18,7 +18,7 @@ export const getBadgeListApi = async () => {
   }
 }
 
-export const getBadgeApi = async (id) => {
+export const getBadgeApi = async (id: number) => {
   try {
     const res = await axios.get(`/backend/fitbit/badges/${id}`)
     return res.data.data
@@ -45,7 +45,7 @@ export const getFatListApi = async () => {
   }
 }
 
-export const getFatApi = async (id) => {
+export const getFatApi = async (id: number) => {
   try {
     const res = await axios.get(`/backend/fitbit/fats/${id}`)
     return res.data.data
@@ -72,7 +72,7 @@ export const getSleepListApi = async () => {
   }
 }
 
-export const getSleepApi = async (id) => {
+export const getSleepApi = async (id: number) => {
   try {
     const res = await axios.get(`/backend/fitbit/sleeps/${id}`)
     return res.data.data
@@ -99,7 +99,7 @@ export const getWeightListApi = async () => {
   }
 }
 
-export const getWeightApi = async (id) => {
+export const getWeightApi = async (id: number) => {
   try {
     const res = await axios.get(`/backend/fitbit/weights/${id}`)
     return res.data.data

@@ -1,10 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getWeightListApi } from '@/apis/FitbitLog'
+import { Weight } from '@/types/Weight'
 
 export const useWeightStore = defineStore('weight', () => {
-  const weightList = ref([])
-  const weight = ref(null)
+  const weightList = ref<Weight[]>([])
+  const weight = ref<Weight | null>(null)
   const isLoading = ref(false)
 
   const getWeightList = async () => {
@@ -19,7 +20,7 @@ export const useWeightStore = defineStore('weight', () => {
     }
   }
 
-  const getSelectedWeight = async (id) => {
+  const getSelectedWeight = async (id: number) => {
     isLoading.value = true
     weight.value = null
     const findValue = id
@@ -28,7 +29,7 @@ export const useWeightStore = defineStore('weight', () => {
         const listData = await getWeightListApi()
         setWeightList(listData)
       }
-      const data = weightList.value.find(({ id }) => id == findValue)
+      const data = weightList.value.find(({ id }) => id == findValue) ?? null
       setSelectedWeight(data)
     } catch (e) {
       console.error('データ取得エラー:', e)
@@ -37,11 +38,11 @@ export const useWeightStore = defineStore('weight', () => {
     }
   }
 
-  const setWeightList = (data) => {
+  const setWeightList = (data: Weight[]) => {
     weightList.value = data
   }
 
-  const setSelectedWeight = (data) => {
+  const setSelectedWeight = (data: Weight | null) => {
     weight.value = data
   }
 

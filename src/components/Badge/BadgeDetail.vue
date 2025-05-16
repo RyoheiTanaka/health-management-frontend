@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBadgeStore } from '@/stores/badge'
@@ -6,13 +6,14 @@ import { useBadgeStore } from '@/stores/badge'
 const route = useRoute()
 const badgeStore = useBadgeStore()
 
-const prevId = ref(null)
+const prevId = ref<number | null>(null)
 
 const badge = computed(() => badgeStore.badge)
 
 watchEffect(() => {
-  const newId = route.params.id
-  if (newId && newId !== prevId.value) {
+  const idParams = route.params.id
+  const newId = idParams ? Number(idParams) : null
+  if (newId != null && newId !== prevId.value) {
     badgeStore.getSelectedBadge(newId)
     prevId.value = newId
   }

@@ -17,7 +17,7 @@ export const getWeekDate = (num = 1) => {
   return date
 }
 
-export function convertMilliseconds(ms) {
+export function convertMilliseconds(ms: number) {
   const hours = Math.floor(ms / (1000 * 60 * 60))
   const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((ms % (1000 * 60)) / 1000)
@@ -25,7 +25,7 @@ export function convertMilliseconds(ms) {
   return { hours, minutes, seconds }
 }
 
-function joinDateString(date) {
+function joinDateString(date: Date) {
   return [
     date.getFullYear(),
     (date.getMonth() + 1).toString().padStart(2, '0'),
