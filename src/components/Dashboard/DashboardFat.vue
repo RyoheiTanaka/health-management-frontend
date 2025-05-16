@@ -3,10 +3,16 @@ import { computed, onMounted } from 'vue'
 import { useFatStore } from '@/stores/fat'
 import { getWeekDate } from '@/utils/date'
 
+interface FatResult {
+  id?: number
+  date: string
+  fat: string
+}
+
 const fatStore = useFatStore()
 const oneWeekDate = getWeekDate()
 const fats = computed(() => {
-  const result = []
+  const result: FatResult[] = []
 
   oneWeekDate.forEach((date) => {
     const fat = fatStore.fatList.find((item) => item.date == date)

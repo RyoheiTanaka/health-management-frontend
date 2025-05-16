@@ -3,10 +3,17 @@ import { computed, onMounted } from 'vue'
 import { useWeightStore } from '@/stores/weight'
 import { getWeekDate } from '@/utils/date'
 
+interface WeightResult {
+  id?: number
+  date: string
+  weight: string
+  bmi: number | string
+}
+
 const weightStore = useWeightStore()
 const oneWeekDate = getWeekDate()
 const weights = computed(() => {
-  const result = []
+  const result: WeightResult[] = []
   if (weightStore.weightList.length !== 0) {
     oneWeekDate.forEach((date) => {
       const weight = weightStore.weightList.find((item) => item.date == date)

@@ -1,10 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getSleepListApi } from '@/apis/FitbitLog'
+import { Sleep } from '@/types/Sleep'
 
 export const useSleepStore = defineStore('sleep', () => {
-  const sleepList = ref([])
-  const sleep = ref(null)
+  const sleepList = ref<Sleep[]>([])
+  const sleep = ref<Sleep | null>(null)
   const isLoading = ref(false)
 
   const getSleepList = async () => {
@@ -19,7 +20,7 @@ export const useSleepStore = defineStore('sleep', () => {
     }
   }
 
-  const getSelectedSleep = async (id) => {
+  const getSelectedSleep = async (id: number) => {
     isLoading.value = true
     sleep.value = null
     const findValue = id
@@ -28,7 +29,7 @@ export const useSleepStore = defineStore('sleep', () => {
         const listData = await getSleepListApi()
         setSleepList(listData)
       }
-      const data = sleepList.value.find(({ id }) => id == findValue)
+      const data = sleepList.value.find(({ id }) => id == findValue) ?? null
       setSelectedSleep(data)
     } catch (e) {
       console.error('データ取得エラー:', e)
@@ -37,11 +38,11 @@ export const useSleepStore = defineStore('sleep', () => {
     }
   }
 
-  const setSleepList = (data) => {
+  const setSleepList = (data: Sleep[]) => {
     sleepList.value = data
   }
 
-  const setSelectedSleep = (data) => {
+  const setSelectedSleep = (data: Sleep | null) => {
     sleep.value = data
   }
 

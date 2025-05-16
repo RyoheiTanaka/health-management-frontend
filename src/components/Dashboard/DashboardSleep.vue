@@ -3,10 +3,17 @@ import { computed, onMounted } from 'vue'
 import { useSleepStore } from '@/stores/sleep'
 import { getWeekDate, convertMilliseconds } from '@/utils/date'
 
+interface SleepResult {
+  id?: number
+  date: string
+  sleepTime: string
+  sleepScore: string
+}
+
 const sleepStore = useSleepStore()
 const oneWeekDate = getWeekDate()
 const sleeps = computed(() => {
-  const result = []
+  const result: SleepResult[] = []
 
   oneWeekDate.forEach((date) => {
     const sleep = sleepStore.sleepList.find((item) => item.date_of_sleep == date)
