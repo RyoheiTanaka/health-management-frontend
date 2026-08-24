@@ -14,8 +14,18 @@ Vue 3（Composition API）と Vite によるSPA構成で、モダンなUIとス�
 
 ## 🌐 デモサイト
 
+> ## ⚠️ このサービスは終了しました（2026-08）
+>
+> 体重管理（ヘルスプラネット）と睡眠計測（Fitbit）の利用をやめ、記録するデータが無くなったため、
+> サービスとしての稼働を終了しました。再開の予定はありません。
+>
+> **コードとAPI仕様書は、制作物の記録として公開したまま残しています。**
+>
+> - API 仕様書（Redoc / GitHub Pages）: https://docs-health-management.coolat.net/ ← 閲覧可
+> - アプリURL: 公開終了
+
 - アプリURL:  
-  👉 https://health-management.coolat.net
+  👉 **公開終了**（2026-08）
 
 - バックエンドAPI：  
   👉 [health-management-api（Laravel）](https://github.com/RyoheiTanaka/health-management-api)
